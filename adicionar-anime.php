@@ -14,11 +14,11 @@
         <input type="text" id="nome" name="nome" required>
 
         <label for="nota">Nota:</label>
-        <input type="number" id="nota" name="nota" min="0" max="10" step="0.1" required>
+        <input type="number" id="nota" name="nota" min="0" max="10" step="0.1">
 
         <label for="categoria">Categoria:</label>
         <select id="categoria" name="categoria" required>
-            <option value="ja_assistiu">Já Assistiu</option>
+            <option value="finalizado">Finalizado</option>
             <option value="assistindo">Assistindo</option>
             <option value="pretende_assistir">Pretende Assistir</option>
         </select>

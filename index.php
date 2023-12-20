@@ -9,7 +9,7 @@
 <body>
     <h1>Controle de Animes</h1>
     
-    <h2>Já Assistiu</h2>
+    <h2>Finalizado</h2>
     <ul>
         <!-- Lista de animes já assistidos -->
         <!-- Exemplo: <li>Anime A - Nota: 8</li> -->
