@@ -4,15 +4,15 @@ class Anime
 {
     private ?int $id;
     private string $nome;
-    private float $nota;
+    private ?float $nota;
     private string $status;
 
-    public function __construct(?int $id, string $nome, float $nota, string $status)
+    public function __construct(?int $id, string $nome, ?float $nota, string $status)
     {
         $this->id = $id;
         $this->nome = $nome;
-        $this->nota = $nota;
         $this->status = $status;
+        $this->nota = $nota;
     }
 
     public function getId(): int

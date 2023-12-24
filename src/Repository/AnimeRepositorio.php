@@ -1,6 +1,6 @@
 <?php
 
-class AnimeRepository
+class AnimeRepositorio
 {
     private PDO $pdo;
 
@@ -21,7 +21,7 @@ class AnimeRepository
 
     public function listaFinalizado(): array
     {
-        $sql = "SELECT * FROM animes WHERE status = 'Finalizado' ORDER BY nota";
+        $sql = "SELECT * FROM animes WHERE status = 'Finalizado' ORDER BY nota DESC";
         $statement = $this->pdo->query($sql);
         $animesFinalizados = $statement->fetchAll(PDO::FETCH_ASSOC);
 
@@ -34,7 +34,7 @@ class AnimeRepository
 
     public function listaAssistindo(): array
     {
-        $sql = "SELECT * FROM animes WHERE status = 'Assistindo' ORDER BY nota";
+        $sql = "SELECT * FROM animes WHERE status = 'Assistindo' ORDER BY nota DESC";
         $statement = $this->pdo->query($sql);
         $animesAssistindo = $statement->fetchAll(PDO::FETCH_ASSOC);
 

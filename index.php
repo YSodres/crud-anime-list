@@ -1,3 +1,15 @@
+<?php
+
+require_once("src/conexao-db.php");
+require_once("src/Model/Anime.php");
+require_once("src/Repository/AnimeRepositorio.php");
+
+$animeRepositorio = new AnimeRepositorio($pdo);
+$dadosFinalizado = $animeRepositorio->listaFinalizado();
+$dadosAssistindo = $animeRepositorio->listaAssistindo();
+$dadosPretendeAssistir = $animeRepositorio->listaPretendeAssistir();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,27 +30,36 @@
                 <div class="finalizado">
                     <h2>Finalizado</h2>
                     <ul>
-                        <!-- Lista de animes já assistidos -->
-                        <!-- Exemplo: <li>Anime A - Nota: 8</li> -->
-                        <li>One Piece - Nota: 10</li>
-                        <li>Full Metal Alchemist Brotherhood - Nota: 10</li>
-                        <li>Bleach - Nota: 8.5</li>
+                        <?php foreach ($dadosFinalizado as $finalizado) {
+                        ?>
+                            <li><?= "{$finalizado->getNome()} - Nota: {$finalizado->getNota()}"?></li>
+                        <?php
+                        }
+                        ?>
                     </ul>
                 </div>
 
                 <div class="assistindo">
                     <h2>Assistindo</h2>
                     <ul>
-                        <!-- Lista de animes em andamento -->
-                        <li>Tokyo Revengers - Nota: 9.0</li>
+                        <?php foreach ($dadosAssistindo as $assistindo) {
+                        ?>
+                            <li><?= "{$assistindo->getNome()} - Nota: {$assistindo->getNota()}"?></li>
+                        <?php
+                        }
+                        ?>
                     </ul>
                 </div>
 
                 <div class="pretende">
                     <h2>Pretende Assistir</h2>
                     <ul>
-                        <!-- Lista de animes que pretende assistir -->
-                        <li>Monster - Nota: **</li>
+                        <?php foreach ($dadosPretendeAssistir as $pretendeAssistir) {
+                        ?>
+                            <li><?= $pretendeAssistir->getNome()?></li>
+                        <?php
+                        }
+                        ?>
                     </ul>
                 </div>
             </div>
