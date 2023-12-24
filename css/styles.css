@@ -13,7 +13,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin: 5% 10%;
+    margin: 3% 7%;
     gap: 40px;
     font-size: 20px;
     display: flex;
@@ -22,19 +22,27 @@ body {
 
 .animes__conteudo__titulo {
     color: #f47521;
-    font-size: 40px;
+    font-size: 30px;
     text-align: center;
 }
 
-.animes__conteudo__adicionar {
-    background-color:#f47521;
+.animes__conteudo__adicionar,
+.animes__conteudo__formulario button {
+    background-color: #f47521;
     color: #000000;
-    width: 240px;
+    width: 240px; /* Mantenha a largura desejada */
+    border: none;
     border-radius: 16px;
     font-size: 24px;
     padding: 3px 5px;
     text-decoration: none;
     text-align: center;
+    cursor: pointer;
+}
+
+.animes__conteudo__adicionar:hover,
+.animes__conteudo__formulario button:hover {
+    background-color: #ff8c53;
 }
 
 .animes__conteudo__categorias{
@@ -69,4 +77,43 @@ li {
     color: #ffffff;
     font-size: 20px;
     margin-bottom: 10px;
+}
+
+.animes__conteudo__formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.animes__conteudo__formulario label {
+    color: #ffffff;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.animes__conteudo__formulario input[name="nome"] {
+    width: 30%;
+    padding: 8px;
+    border: 1px solid #f47521;
+    border-radius: 8px;
+    font-size: 16px
+}
+
+.animes__conteudo__formulario input[name="nota"] {
+    width: 3%;
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #f47521;
+    border-radius: 8px;
+    font-size: 16px
+}
+.animes__conteudo__formulario select {
+    width: 10%;
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #f47521;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 16px;
 }

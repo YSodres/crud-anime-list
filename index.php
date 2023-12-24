@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Animes</title>
+    <title>Listas de Animes</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
     <header></header>
     <main class="animes">
         <section class="animes__conteudo">
-            <h1 class="animes__conteudo__titulo">Controle de Animes</h1>
+            <h1 class="animes__conteudo__titulo">Listas de Animes</h1>
             
             <a class="animes__conteudo__adicionar" href="adicionar-anime.php">Adicionar Anime</a>
 

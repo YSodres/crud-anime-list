@@ -2,34 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Anime</title>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 <body>
     <header></header>
-    <main>
-        <h1>Adicionar Anime</h1>
-    
-        <form action="processar_adicao.php" method="post">
-            <label for="nome">Nome do Anime:</label>
-            <input type="text" id="nome" name="nome" required>
+    <main class="animes">
+        <section class="animes__conteudo">
+            <h1 class="animes__conteudo__titulo">Informações do Anime</h1>
 
-            <label for="nota">Nota:</label>
-            <input type="number" id="nota" name="nota" min="0" max="10" step="0.1">
+            <a class="animes__conteudo__adicionar" href="index.php">Página principal</a>
 
-            <label for="categoria">Categoria:</label>
-            <select id="categoria" name="categoria" required>
-                <option value="finalizado">Finalizado</option>
-                <option value="assistindo">Assistindo</option>
-                <option value="pretende_assistir">Pretende Assistir</option>
-            </select>
+            <form class="animes__conteudo__formulario">
+                <label for="nome">Nome do Anime:</label>
+                <input type="text" id="nome" name="nome" required>
 
-            <button type="submit">Adicionar</button>
-        </form>
+                <label for="nota">Nota:</label>
+                <input type="number" id="nota" name="nota" min="0" max="10" step="0.1">
+
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="finalizado">Finalizado</option>
+                    <option value="assistindo">Assistindo</option>
+                    <option value="pretende">Pretende Assistir</option>
+                </select>
+
+                <button type="submit">Confirmar</button>
+            </form>
+        </section>
     </main>
     <footer></footer>
-    <a href="index.html">Voltar para a Lista</a>
 </body>
 </html>
