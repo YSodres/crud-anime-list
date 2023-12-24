@@ -30,6 +30,9 @@
 
                 <button type="submit">Confirmar</button>
             </form>
+            <div class="animes__conteudo__imagem">
+                <img src="/img/haikyuu.png.png" alt="Haikyuu">
+            </div>
         </section>
     </main>
     <footer></footer>
