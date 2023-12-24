@@ -25,6 +25,11 @@ body {
     text-align: center;
 }
 
+.animes__conteudo__opcoes {
+    display:flex;
+    gap: 20px;
+}
+
 .animes__conteudo__adicionar,
 .animes__conteudo__formulario button {
     background-color: #f47521;

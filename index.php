@@ -8,6 +8,7 @@ $animeRepositorio = new AnimeRepositorio($pdo);
 $dadosFinalizado = $animeRepositorio->listaFinalizado();
 $dadosAssistindo = $animeRepositorio->listaAssistindo();
 $dadosPretendeAssistir = $animeRepositorio->listaPretendeAssistir();
+
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +25,10 @@ $dadosPretendeAssistir = $animeRepositorio->listaPretendeAssistir();
         <section class="animes__conteudo">
             <h1 class="animes__conteudo__titulo">Listas de Animes</h1>
             
-            <a class="animes__conteudo__adicionar" href="adicionar-anime.php">Adicionar Anime</a>
+            <div class="animes__conteudo__opcoes">
+                <a class="animes__conteudo__adicionar" href="adicionar-anime.php">Adicionar Anime</a>
+                <a class="animes__conteudo__adicionar" href="editar-anime.php">Editar Anime</a>
+            </div>
 
             <div class="animes__conteudo__categorias">
                 <div class="finalizado">
