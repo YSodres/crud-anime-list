@@ -1,3 +1,25 @@
+<?php
+
+require_once("src/conexao-db.php");
+require_once("src/Model/Anime.php");
+require_once("src/Repository/AnimeRepositorio.php");
+
+if (isset($_POST["confirmar"])) {
+    $anime = new Anime(
+        null,
+        $_POST["nome"],
+        $_POST["nota"],
+        $_POST["status"],
+    );
+
+    $animeRepositorio = new AnimeRepositorio($pdo);
+    $animeRepositorio->salvar($anime);
+
+    header("Location: index.php");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +36,7 @@
 
             <a class="animes__conteudo__adicionar" href="index.php">Página principal</a>
 
-            <form class="animes__conteudo__formulario">
+            <form class="animes__conteudo__formulario" method="post">
                 <label for="nome">Nome do Anime:</label>
                 <input type="text" id="nome" name="nome" required>
 
@@ -28,7 +50,7 @@
                     <option value="pretende">Pretende Assistir</option>
                 </select>
 
-                <button type="submit">Confirmar</button>
+                <button type="submit" name="confirmar">Confirmar</button>
             </form>
             <div class="animes__conteudo__imagem">
                 <img src="/img/haikyuu.png.png" alt="Haikyuu">
