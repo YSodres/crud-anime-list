@@ -21,12 +21,12 @@ class AnimeRepository
 
     public function listaFinalizado(): array
     {
-        $sql1 = "SELECT * FROM animes WHERE status = 'Finalizado' ORDER BY nota";
-        $statement = $this->pdo->query($sql1);
+        $sql = "SELECT * FROM animes WHERE status = 'Finalizado' ORDER BY nota";
+        $statement = $this->pdo->query($sql);
         $animesFinalizados = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-        $dadosAnimes = array_map(function ($finalizado) {
-            return $this->formarObjeto($finalizado);
+        $dadosAnimes = array_map(function ($anime) {
+            return $this->formarObjeto($anime);
         }, $animesFinalizados);
 
         return $dadosAnimes;
@@ -34,12 +34,12 @@ class AnimeRepository
 
     public function listaAssistindo(): array
     {
-        $sql1 = "SELECT * FROM animes WHERE status = 'Assistindo' ORDER BY nota";
-        $statement = $this->pdo->query($sql1);
+        $sql = "SELECT * FROM animes WHERE status = 'Assistindo' ORDER BY nota";
+        $statement = $this->pdo->query($sql);
         $animesAssistindo = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-        $dadosAnimes = array_map(function ($assistindo) {
-            return $this->formarObjeto($assistindo);
+        $dadosAnimes = array_map(function ($anime) {
+            return $this->formarObjeto($anime);
         }, $animesAssistindo);
 
         return $dadosAnimes;
@@ -47,14 +47,46 @@ class AnimeRepository
 
     public function listaPretendeAssistir(): array
     {
-        $sql1 = "SELECT * FROM animes WHERE status = 'Pretende Assistir' ORDER BY nome";
-        $statement = $this->pdo->query($sql1);
+        $sql = "SELECT * FROM animes WHERE status = 'Pretende Assistir' ORDER BY nome";
+        $statement = $this->pdo->query($sql);
         $animesPretendeAssistir = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-        $dadosAnimes = array_map(function ($pretendeAssistir) {
-            return $this->formarObjeto($pretendeAssistir);
+        $dadosAnimes = array_map(function ($anime) {
+            return $this->formarObjeto($anime);
         }, $animesPretendeAssistir);
 
         return $dadosAnimes;
+    }
+
+    public function salvar(Anime $anime)
+    {
+        $sql = "INSERT INTO animes (nome, nota, status) VALUES (?,?,?)";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $anime->getNome());
+        $statement->bindValue(2, $anime->getNota());
+        $statement->bindValue(3, $anime->getStatus());
+        $statement->execute();
+    }
+
+    public function buscar(int $id)
+    {
+        $sql = "SELECT * FROM animes WHERE id = ?";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $id);
+        $statement->execute();
+
+        $dados = $statement->fetch(PDO::FETCH_ASSOC);
+
+        return $this->formarObjeto($dados);
+    }
+
+    public function atualizar(Anime $anime)
+    {
+        $sql = "UPDATE produtos SET tipo = ?, nome = ?, descricao = ?, preco = ? WHERE id = ?";
+        $statement = $this->pdo->prepare($sql);
+        $statement->bindValue(1, $anime->getNome());
+        $statement->bindValue(2, $anime->getNota());
+        $statement->bindValue(3, $anime->getStatus());
+        $statement->execute();
     }
 }
