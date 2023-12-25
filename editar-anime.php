@@ -6,19 +6,33 @@ require_once("src/Repository/AnimeRepositorio.php");
 
 $animeRepositorio = new AnimeRepositorio($pdo);
 
-if (isset($_POST["confirmar"])) {
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Se o formulário foi enviado
+    $animeId = isset($_POST["anime_id"]) ? $_POST["anime_id"] : null;
+
+    if ($animeId) {
+        // Buscar o anime apenas se o ID for fornecido
+        $anime = $animeRepositorio->buscar($animeId);
+    }
+} else {
+    // Se é a primeira vez que a página é carregada
+    $animes = $animeRepositorio->buscarTodos();
+    $animeId = null;
+    $anime = null;
+}
+
+if (isset($_POST["confirmar"]) && $animeId) {
+    // Se o formulário foi confirmado e um anime foi selecionado
     $anime = new Anime(
-        $_POST["id"],
+        $animeId,
         $_POST["nome"],
         $_POST["nota"],
-        $_POST["status"],
+        $_POST["status"]
     );
 
     $animeRepositorio->atualizar($anime);
 
     header("Location: index.php");
-} else {
-    $anime = $animeRepositorio->buscar($_GET["id"]);
 }
 
 ?>
@@ -40,26 +54,76 @@ if (isset($_POST["confirmar"])) {
             <a class="animes__conteudo__adicionar" href="index.php">Página principal</a>
 
             <form class="animes__conteudo__formulario" method="post">
+                <label for="anime_id">Escolha o Anime</label>
+                <select name="anime_id" id="anime_id" required>
+                    <option value="" selected disabled>-</option>
+                    <?php foreach ($animes as $animeOption) {
+                        ?>
+                        <option value="<?= $animeOption->getId() ?>" <?= ($animeOption->getId() == $animeId) ? 'selected' : '' ?>>
+                            <?= $animeOption->getNome() ?>
+                        </option>
+                    <?php
+                    }
+                    ?>
+                </select>
+
                 <label for="nome">Nome do Anime:</label>
-                <input type="text" id="nome" name="nome" required>
+                <input type="text" id="nome" name="nome" value="<?= $anime ? $anime->getNome() : ''; ?>" required>
 
                 <label for="nota">Nota:</label>
-                <input type="number" id="nota" name="nota" min="0" max="10" step="0.1">
+                <input type="number" id="nota" name="nota" min="0" max="10" step="0.1" value="<?= $anime ? $anime->getNota() : ''; ?>">
 
                 <label for="status">Status:</label>
-                <select id="status" name="status" required>
-                    <option value="finalizado">Finalizado</option>
-                    <option value="assistindo">Assistindo</option>
-                    <option value="pretende">Pretende Assistir</option>
+                <select id="status" name="status">
+                    <option value="finalizado" <?= ($anime && $anime->getStatus() == 'Finalizado') ? 'selected' : ''; ?>>Finalizado</option>
+                    <option value="assistindo" <?= ($anime && $anime->getStatus() == 'Assistindo') ? 'selected' : ''; ?>>Assistindo</option>
+                    <option value="pretende" <?= ($anime && $anime->getStatus() == 'Pretende Assistir') ? 'selected' : ''; ?>>Pretende Assistir</option>
                 </select>
 
                 <button type="submit" name="confirmar">Confirmar</button>
             </form>
-            <div class="animes__conteudo__imagem">
-                <img src="/img/haikyuu.png.png" alt="Haikyuu">
-            </div>
         </section>
     </main>
     <footer></footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var selectAnime = document.getElementById('anime_id');
+            var nomeInput = document.getElementById('nome');
+            var notaInput = document.getElementById('nota');
+            var statusSelect = document.getElementById('status');
+
+            selectAnime.addEventListener('change', function () {
+                var selectedOption = selectAnime.options[selectAnime.selectedIndex];
+
+                if (selectedOption.value !== '') {
+                    // Anime selecionado, faz a requisição AJAX para obter os dados do anime
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "obter_dados_anime.php", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            var dadosAnime = JSON.parse(xhr.responseText);
+
+                            // Preenche os campos com os dados do anime obtidos
+                            nomeInput.value = dadosAnime.nome;
+                            notaInput.value = dadosAnime.nota;
+                            statusSelect.value = dadosAnime.status;
+                        }
+                    };
+                    xhr.send("anime_id=" + selectedOption.value);
+                } else {
+                    // Nenhum anime selecionado, desabilita os campos
+                    nomeInput.value = '';
+                    notaInput.value = '';
+                    statusSelect.value = '';
+
+                    nomeInput.setAttribute('disabled', 'disabled');
+                    notaInput.setAttribute('disabled', 'disabled');
+                    statusSelect.setAttribute('disabled', 'disabled');
+                    confirmarButton.setAttribute('disabled', 'disabled');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

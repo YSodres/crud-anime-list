@@ -100,6 +100,7 @@ class AnimeRepositorio
         $statement->bindValue(1, $anime->getNome());
         $statement->bindValue(2, $anime->getNota());
         $statement->bindValue(3, $anime->getStatus());
+        $statement->bindValue(4, $anime->getId());
         $statement->execute();
     }
 }

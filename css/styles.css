@@ -96,7 +96,15 @@ li {
     margin-top: 10px;
 }
 
-.animes__conteudo__formulario input[name="nome"] {
+.animes__conteudo__formulario select[name="anime_id"] {
+    width: 31%;
+    padding: 8px;
+    border: 1px solid #f47521;
+    border-radius: 8px;
+    font-size: 16px
+}
+
+.animes__conteudo__formulario input[name="nome"], select[name="anime_id"] {
     width: 30%;
     padding: 8px;
     border: 1px solid #f47521;
