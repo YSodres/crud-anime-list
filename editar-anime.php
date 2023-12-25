@@ -68,19 +68,19 @@ if (isset($_POST["confirmar"]) && $animeId) {
                 </select>
 
                 <label for="nome">Nome do Anime:</label>
-                <input type="text" id="nome" name="nome" value="<?= $anime ? $anime->getNome() : ''; ?>" required>
+                <input type="text" id="nome" name="nome" value="<?= $anime ? $anime->getNome() : ''; ?>" readonly required>
 
                 <label for="nota">Nota:</label>
-                <input type="number" id="nota" name="nota" min="0" max="10" step="0.1" value="<?= $anime ? $anime->getNota() : ''; ?>">
+                <input type="number" id="nota" name="nota" min="0" max="10" step="0.1" value="<?= $anime ? $anime->getNota() : ''; ?>" readonly>
 
                 <label for="status">Status:</label>
-                <select id="status" name="status">
-                    <option value="finalizado" <?= ($anime && $anime->getStatus() == 'Finalizado') ? 'selected' : ''; ?>>Finalizado</option>
-                    <option value="assistindo" <?= ($anime && $anime->getStatus() == 'Assistindo') ? 'selected' : ''; ?>>Assistindo</option>
-                    <option value="pretende" <?= ($anime && $anime->getStatus() == 'Pretende Assistir') ? 'selected' : ''; ?>>Pretende Assistir</option>
+                <select id="status" name="status" readonly disabled>
+                    <option value="Finalizado" <?= ($anime && $anime->getStatus() == 'Finalizado') ? 'selected' : ''; ?>>Finalizado</option>
+                    <option value="Assistindo" <?= ($anime && $anime->getStatus() == 'Assistindo') ? 'selected' : ''; ?>>Assistindo</option>
+                    <option value="Pretende Assistir" <?= ($anime && $anime->getStatus() == 'Pretende Assistir') ? 'selected' : ''; ?>>Pretende Assistir</option>
                 </select>
 
-                <button type="submit" name="confirmar">Confirmar</button>
+                <button type="submit" name="confirmar" disabled>Confirmar</button>
             </form>
         </section>
     </main>
@@ -91,6 +91,7 @@ if (isset($_POST["confirmar"]) && $animeId) {
             var nomeInput = document.getElementById('nome');
             var notaInput = document.getElementById('nota');
             var statusSelect = document.getElementById('status');
+            var confirmarButton = document.querySelector('[name="confirmar"]');
 
             selectAnime.addEventListener('change', function () {
                 var selectedOption = selectAnime.options[selectAnime.selectedIndex];
@@ -108,20 +109,16 @@ if (isset($_POST["confirmar"]) && $animeId) {
                             nomeInput.value = dadosAnime.nome;
                             notaInput.value = dadosAnime.nota;
                             statusSelect.value = dadosAnime.status;
+
+                            // Remove a propriedade 'readonly' dos campos e 'disabled' do select
+                            nomeInput.removeAttribute('readonly');
+                            notaInput.removeAttribute('readonly');
+                            statusSelect.removeAttribute('disabled');
+                            confirmarButton.removeAttribute('disabled');
                         }
                     };
                     xhr.send("anime_id=" + selectedOption.value);
-                } else {
-                    // Nenhum anime selecionado, desabilita os campos
-                    nomeInput.value = '';
-                    notaInput.value = '';
-                    statusSelect.value = '';
-
-                    nomeInput.setAttribute('disabled', 'disabled');
-                    notaInput.setAttribute('disabled', 'disabled');
-                    statusSelect.setAttribute('disabled', 'disabled');
-                    confirmarButton.setAttribute('disabled', 'disabled');
-                }
+                } 
             });
         });
     </script>
