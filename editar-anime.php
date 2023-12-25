@@ -5,6 +5,9 @@ require_once("src/Model/Anime.php");
 require_once("src/Repository/AnimeRepositorio.php");
 
 $animeRepositorio = new AnimeRepositorio($pdo);
+$animes = $animeRepositorio->buscarTodos();
+$animeId = null;
+$anime = null;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Se o formulário foi enviado
@@ -14,11 +17,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Buscar o anime apenas se o ID for fornecido
         $anime = $animeRepositorio->buscar($animeId);
     }
-} else {
-    // Se é a primeira vez que a página é carregada
-    $animes = $animeRepositorio->buscarTodos();
-    $animeId = null;
-    $anime = null;
 }
 
 if (isset($_POST["confirmar"]) && $animeId) {
