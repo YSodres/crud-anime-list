@@ -129,3 +129,8 @@ li {
     margin-bottom: 20px;
     font-size: 16px;
 }
+
+.required:after {
+    content:" *"; 
+    color: red;
+}

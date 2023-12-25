@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 if (isset($_POST["confirmar"]) && $animeId) {
     // Se o formulário foi confirmado e um anime foi selecionado
-    $nota = isset($_POST["nota"]) ? floatval($_POST["nota"]) : null;
+    $nota = (isset($_POST["nota"]) && $_POST["nota"] != "") ? floatval($_POST["nota"]) : null;
 
     $anime = new Anime(
         $animeId,
@@ -54,7 +54,7 @@ if (isset($_POST["confirmar"]) && $animeId) {
             <a class="animes__conteudo__adicionar" href="index.php">Página principal</a>
 
             <form class="animes__conteudo__formulario" method="post">
-                <label for="anime_id">Escolha o Anime</label>
+                <label for="anime_id" class="required">Escolha o Anime</label>
                 <select name="anime_id" id="anime_id" required>
                     <option value="" selected disabled>-</option>
                     <?php foreach ($animes as $animeOption) {
@@ -67,7 +67,7 @@ if (isset($_POST["confirmar"]) && $animeId) {
                     ?>
                 </select>
 
-                <label for="nome">Nome do Anime:</label>
+                <label for="nome" class="required">Nome do Anime:</label>
                 <input type="text" id="nome" name="nome" value="<?= $anime ? $anime->getNome() : ''; ?>" readonly required>
 
                 <label for="nota">Nota:</label>

@@ -39,7 +39,7 @@ if (isset($_POST["confirmar"])) {
             <a class="animes__conteudo__adicionar" href="index.php">Página principal</a>
 
             <form class="animes__conteudo__formulario" method="post">
-                <label for="nome">Nome do Anime:</label>
+                <label for="nome" class="required">Nome do Anime:</label>
                 <input type="text" id="nome" name="nome" required>
 
                 <label for="nota">Nota:</label>
