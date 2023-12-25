@@ -68,6 +68,19 @@ class AnimeRepositorio
         $statement->execute();
     }
 
+    public function buscarTodos()
+    {
+        $sql = "SELECT * FROM animes ORDER BY nome";
+        $statement = $this->pdo->query($sql);
+        $dados = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        $todosOsDados = array_map(function ($anime) {
+            return $this->formarObjeto($anime);
+        }, $dados);
+
+        return $todosOsDados;
+    }
+
     public function buscar(int $id)
     {
         $sql = "SELECT * FROM animes WHERE id = ?";
@@ -82,7 +95,7 @@ class AnimeRepositorio
 
     public function atualizar(Anime $anime)
     {
-        $sql = "UPDATE produtos SET tipo = ?, nome = ?, descricao = ?, preco = ? WHERE id = ?";
+        $sql = "UPDATE animes SET nome = ?, nota = ?, status = ? WHERE id = ?";
         $statement = $this->pdo->prepare($sql);
         $statement->bindValue(1, $anime->getNome());
         $statement->bindValue(2, $anime->getNota());
