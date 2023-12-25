@@ -36,7 +36,15 @@ $dadosPretendeAssistir = $animeRepositorio->listaPretendeAssistir();
                     <ul>
                         <?php foreach ($dadosFinalizado as $finalizado) {
                         ?>
-                            <li><?= "{$finalizado->getNome()} - Nota: {$finalizado->getNota()}"?></li>
+                            <li>
+                                <?= $finalizado->getNome(); ?>
+                                <?php if ($finalizado->getNota() !== null) {
+                                ?>
+                                    - Nota: <?= $finalizado->getNota(); ?>
+                                <?php 
+                                }
+                                ?>
+                            </li>
                         <?php
                         }
                         ?>
@@ -48,7 +56,15 @@ $dadosPretendeAssistir = $animeRepositorio->listaPretendeAssistir();
                     <ul>
                         <?php foreach ($dadosAssistindo as $assistindo) {
                         ?>
-                            <li><?= "{$assistindo->getNome()} - Nota: {$assistindo->getNota()}"?></li>
+                            <li>
+                                <?= $assistindo->getNome(); ?>
+                                <?php if ($assistindo->getNota() !== null) {
+                                ?>
+                                    - Nota: <?= $assistindo->getNota(); ?>
+                                <?php 
+                                }
+                                ?>
+                            </li>                        
                         <?php
                         }
                         ?>
@@ -60,7 +76,15 @@ $dadosPretendeAssistir = $animeRepositorio->listaPretendeAssistir();
                     <ul>
                         <?php foreach ($dadosPretendeAssistir as $pretendeAssistir) {
                         ?>
-                            <li><?= $pretendeAssistir->getNome()?></li>
+                            <li>
+                                <?= $pretendeAssistir->getNome(); ?>
+                                <?php if ($pretendeAssistir->getNota() !== null) {
+                                ?>
+                                    - Nota: <?= $pretendeAssistir->getNota(); ?>
+                                <?php 
+                                }
+                                ?>
+                            </li>
                         <?php
                         }
                         ?>

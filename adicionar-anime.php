@@ -5,10 +5,12 @@ require_once("src/Model/Anime.php");
 require_once("src/Repository/AnimeRepositorio.php");
 
 if (isset($_POST["confirmar"])) {
+    $nota = (isset($_POST["nota"]) && $_POST["nota"] != "") ? floatval($_POST["nota"]) : null;
+
     $anime = new Anime(
         null,
         $_POST["nome"],
-        $_POST["nota"],
+        $nota,
         $_POST["status"],
     );
 
@@ -45,9 +47,9 @@ if (isset($_POST["confirmar"])) {
 
                 <label for="status">Status:</label>
                 <select id="status" name="status" required>
-                    <option value="finalizado">Finalizado</option>
-                    <option value="assistindo">Assistindo</option>
-                    <option value="pretende">Pretende Assistir</option>
+                    <option value="Finalizado">Finalizado</option>
+                    <option value="Assistindo">Assistindo</option>
+                    <option value="Pretende Assistir">Pretende Assistir</option>
                 </select>
 
                 <button type="submit" name="confirmar">Confirmar</button>

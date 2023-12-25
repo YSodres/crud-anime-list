@@ -25,7 +25,7 @@ class Anime
         return $this->nome;
     }
 
-    public function getNota(): float
+    public function getNota(): ?float
     {
         return $this->nota;
     }

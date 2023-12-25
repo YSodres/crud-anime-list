@@ -21,11 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 if (isset($_POST["confirmar"]) && $animeId) {
     // Se o formulário foi confirmado e um anime foi selecionado
+    $nota = isset($_POST["nota"]) ? floatval($_POST["nota"]) : null;
+
     $anime = new Anime(
         $animeId,
         $_POST["nome"],
-        $_POST["nota"],
-        $_POST["status"]
+        $nota,
+        $_POST["status"],
     );
 
     $animeRepositorio->atualizar($anime);
