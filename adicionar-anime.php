@@ -52,7 +52,9 @@ if (isset($_POST["confirmar"])) {
                     <option value="Pretende Assistir">Pretende Assistir</option>
                 </select>
 
-                <button type="submit" name="confirmar">Confirmar</button>
+                <div class = "animes__conteudo__formulario__botoes">
+                    <button type="submit" name="confirmar">Confirmar</button>
+                </div>
             </form>
             <div class="animes__conteudo__imagem">
                 <img src="/img/haikyuu.png.png" alt="Haikyuu">

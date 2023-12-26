@@ -135,6 +135,14 @@ li {
     gap: 20px;
 }
 
+.animes__conteudo__formulario__botoes button[name="confirmar"]{
+    background-color: green;
+}
+
+.animes__conteudo__formulario__botoes button[name="excluir"]{
+    background-color: #D60808;
+}
+
 .required:after {
     content:" *"; 
     color: red;
