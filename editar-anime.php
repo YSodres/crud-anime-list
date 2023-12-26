@@ -64,27 +64,27 @@ if (isset($_POST["confirmar"]) && $animeId) {
                 <input type="number" id="nota" name="nota" min="0" max="10" step="0.1" value="<?= $anime ? $anime->getNota() : ''; ?>" readonly>
 
                 <label for="status">Status:</label>
-                <select id="status" name="status" readonly disabled>
+                <select id="status" name="status" disabled>
                     <option value="Finalizado" <?= ($anime && $anime->getStatus() == 'Finalizado') ? 'selected' : ''; ?>>Finalizado</option>
                     <option value="Assistindo" <?= ($anime && $anime->getStatus() == 'Assistindo') ? 'selected' : ''; ?>>Assistindo</option>
                     <option value="Pretende Assistir" <?= ($anime && $anime->getStatus() == 'Pretende Assistir') ? 'selected' : ''; ?>>Pretende Assistir</option>
                 </select>
 
-                <button type="submit" name="confirmar" disabled>Confirmar</button>
+                <button type="submit" id="confirmar" name="confirmar" disabled>Confirmar</button>
             </form>
         </section>
     </main>
     <footer></footer>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            let selectAnime = document.getElementById('anime_id');
+            let animeSelect = document.getElementById('anime_id');
             let nomeInput = document.getElementById('nome');
             let notaInput = document.getElementById('nota');
             let statusSelect = document.getElementById('status');
-            let confirmarButton = document.querySelector('[name="confirmar"]');
+            let confirmarButton = document.getElementById('confirmar');
 
-            selectAnime.addEventListener('change', function () {
-                let selectedOption = selectAnime.options[selectAnime.selectedIndex];
+            animeSelect.addEventListener('change', function () {
+                let selectedOption = animeSelect.options[animeSelect.selectedIndex];
 
                 if (selectedOption.value !== '') {
                     // Anime selecionado, faz a requisição AJAX usando a API Fetch

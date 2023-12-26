@@ -90,7 +90,7 @@ class AnimeRepositorio
 
         $dados = $statement->fetch(PDO::FETCH_ASSOC);
 
-        return $this->formarObjeto($dados);
+        return $dados;
     }
 
     public function atualizar(Anime $anime)
