@@ -77,38 +77,46 @@ if (isset($_POST["confirmar"]) && $animeId) {
     <footer></footer>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var selectAnime = document.getElementById('anime_id');
-            var nomeInput = document.getElementById('nome');
-            var notaInput = document.getElementById('nota');
-            var statusSelect = document.getElementById('status');
-            var confirmarButton = document.querySelector('[name="confirmar"]');
+            let selectAnime = document.getElementById('anime_id');
+            let nomeInput = document.getElementById('nome');
+            let notaInput = document.getElementById('nota');
+            let statusSelect = document.getElementById('status');
+            let confirmarButton = document.querySelector('[name="confirmar"]');
 
             selectAnime.addEventListener('change', function () {
-                var selectedOption = selectAnime.options[selectAnime.selectedIndex];
+                let selectedOption = selectAnime.options[selectAnime.selectedIndex];
 
                 if (selectedOption.value !== '') {
-                    // Anime selecionado, faz a requisição AJAX para obter os dados do anime
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "obter_dados_anime.php", true);
-                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState == 4 && xhr.status == 200) {
-                            var dadosAnime = JSON.parse(xhr.responseText);
-
-                            // Preenche os campos com os dados do anime obtidos
-                            nomeInput.value = dadosAnime.nome;
-                            notaInput.value = dadosAnime.nota;
-                            statusSelect.value = dadosAnime.status;
-
-                            // Remove a propriedade 'readonly' dos campos e 'disabled' do select
-                            nomeInput.removeAttribute('readonly');
-                            notaInput.removeAttribute('readonly');
-                            statusSelect.removeAttribute('disabled');
-                            confirmarButton.removeAttribute('disabled');
+                    // Anime selecionado, faz a requisição AJAX usando a API Fetch
+                    fetch('obter_dados_anime.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: 'anime_id=' + selectedOption.value
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erro na requisição: ' + response.statusText);
                         }
-                    };
-                    xhr.send("anime_id=" + selectedOption.value);
-                } 
+                        return response.json();
+                    })
+                    .then(dadosAnime => {
+                        // Preenche os campos com os dados do anime obtidos
+                        nomeInput.value = dadosAnime.nome;
+                        notaInput.value = dadosAnime.nota;
+                        statusSelect.value = dadosAnime.status;
+
+                        // Remove a propriedade 'readonly' dos campos e 'disabled' do select
+                        nomeInput.removeAttribute('readonly');
+                        notaInput.removeAttribute('readonly');
+                        statusSelect.removeAttribute('disabled');
+                        confirmarButton.removeAttribute('disabled');
+                    })
+                    .catch(error => {
+                        console.error('Erro na requisição:', error);
+                    });
+                }
             });
         });
     </script>
