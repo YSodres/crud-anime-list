@@ -23,7 +23,14 @@ if (isset($_POST["confirmar"]) && $animeId) {
     $animeRepositorio->atualizar($anime);
 
     header("Location: index.php");
+};
+
+if (isset($_POST["excluir"]) && $animeId) {
+    $animeRepositorio->deletar($animeId);
+
+    header("Location: editar-anime.php");
 }
+
 
 ?>
 
@@ -69,8 +76,11 @@ if (isset($_POST["confirmar"]) && $animeId) {
                     <option value="Assistindo" <?= ($anime && $anime->getStatus() == 'Assistindo') ? 'selected' : ''; ?>>Assistindo</option>
                     <option value="Pretende Assistir" <?= ($anime && $anime->getStatus() == 'Pretende Assistir') ? 'selected' : ''; ?>>Pretende Assistir</option>
                 </select>
-
-                <button type="submit" id="confirmar" name="confirmar" disabled>Confirmar</button>
+                
+                <div class="animes__conteudo__formulario__botoes">
+                    <button type="submit" id="confirmar" name="confirmar" disabled>Confirmar</button>
+                    <button type="submit" id="excluir" name="excluir" disabled>Excluir</button>
+                </div>
             </form>
         </section>
     </main>
@@ -82,6 +92,7 @@ if (isset($_POST["confirmar"]) && $animeId) {
             let notaInput = document.getElementById('nota');
             let statusSelect = document.getElementById('status');
             let confirmarButton = document.getElementById('confirmar');
+            let excluirButton = document.getElementById('excluir');
 
             animeSelect.addEventListener('change', function () {
                 let selectedOption = animeSelect.options[animeSelect.selectedIndex];
@@ -112,6 +123,7 @@ if (isset($_POST["confirmar"]) && $animeId) {
                         notaInput.removeAttribute('readonly');
                         statusSelect.removeAttribute('disabled');
                         confirmarButton.removeAttribute('disabled');
+                        excluirButton.removeAttribute('disabled');
                     })
                     .catch(error => {
                         console.error('Erro na requisição:', error);
