@@ -1,6 +1,6 @@
 <?php
-require_once("src/conexao-db.php");
-require_once("src/Repository/AnimeRepositorio.php");
+require_once("../conexao-db.php");
+require_once("../Repository/AnimeRepositorio.php");
 
 header('Content-Type: application/json');
 

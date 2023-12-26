@@ -88,7 +88,7 @@ if (isset($_POST["confirmar"]) && $animeId) {
 
                 if (selectedOption.value !== '') {
                     // Anime selecionado, faz a requisição AJAX usando a API Fetch
-                    fetch('obter_dados_anime.php', {
+                    fetch('src/API/obter_dados_anime.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded'
