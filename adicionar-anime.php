@@ -5,16 +5,12 @@ require_once("src/Model/Anime.php");
 require_once("src/Repository/AnimeRepositorio.php");
 
 if (isset($_POST["confirmar"])) {
-    $nota = (isset($_POST["nota"]) && $_POST["nota"] != "") ? floatval($_POST["nota"]) : null;
-
-    $anime = new Anime(
-        null,
-        $_POST["nome"],
-        $nota,
-        $_POST["status"],
-    );
-
     $animeRepositorio = new AnimeRepositorio($pdo);
+
+    $nota = isset($_POST["nota"]) && $_POST["nota"] !== "" ? floatval($_POST["nota"]) : null;
+
+    $anime = new Anime($animeId, $_POST["nome"], $nota, $_POST["status"]);
+
     $animeRepositorio->salvar($anime);
 
     header("Location: index.php");
@@ -52,10 +48,11 @@ if (isset($_POST["confirmar"])) {
                     <option value="Pretende Assistir">Pretende Assistir</option>
                 </select>
 
-                <div class = "animes__conteudo__formulario__botoes">
+                <div class="animes__conteudo__formulario__botoes">
                     <button type="submit" name="confirmar">Confirmar</button>
                 </div>
             </form>
+
             <div class="animes__conteudo__imagem">
                 <img src="/img/haikyuu.png.png" alt="Haikyuu">
             </div>
