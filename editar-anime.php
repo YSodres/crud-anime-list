@@ -6,31 +6,27 @@ require_once("src/Repository/AnimeRepositorio.php");
 
 $animeRepositorio = new AnimeRepositorio($pdo);
 $animes = $animeRepositorio->buscarTodos();
-$animeId = isset($_POST["anime_id"]) ? $_POST["anime_id"] : null;
+$animeId = $_POST["anime_id"] ?? null;
 $anime = null;
 
 if (isset($_POST["confirmar"]) && $animeId) {
     // Se o formulário foi confirmado e um anime foi selecionado
-    $nota = (isset($_POST["nota"]) && $_POST["nota"] != "") ? floatval($_POST["nota"]) : null;
+    $nota = isset($_POST["nota"]) && $_POST["nota"] !== "" ? floatval($_POST["nota"]) : null;
 
-    $anime = new Anime(
-        $animeId,
-        $_POST["nome"],
-        $nota,
-        $_POST["status"],
-    );
+    $anime = new Anime($animeId, $_POST["nome"], $nota, $_POST["status"]);
 
     $animeRepositorio->atualizar($anime);
 
     header("Location: index.php");
-};
+    exit;
+}
 
 if (isset($_POST["excluir"]) && $animeId) {
     $animeRepositorio->deletar($animeId);
 
     header("Location: editar-anime.php");
+    exit;
 }
-
 
 ?>
 
@@ -54,14 +50,11 @@ if (isset($_POST["excluir"]) && $animeId) {
                 <label for="anime_id" class="required">Escolha o Anime</label>
                 <select name="anime_id" id="anime_id" required>
                     <option value="" selected disabled>-</option>
-                    <?php foreach ($animes as $animeOption) {
-                        ?>
+                    <?php foreach ($animes as $animeOption): ?>
                         <option value="<?= $animeOption->getId() ?>" <?= ($animeOption->getId() == $animeId) ? 'selected' : '' ?>>
                             <?= $animeOption->getNome() ?>
                         </option>
-                    <?php
-                    }
-                    ?>
+                    <?php endforeach; ?>
                 </select>
 
                 <label for="nome" class="required">Nome do Anime:</label>
