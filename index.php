@@ -34,60 +34,42 @@ $dadosPretendeAssistir = $animeRepositorio->listaPretendeAssistir();
                 <div class="finalizado">
                     <h2>Finalizado</h2>
                     <ul>
-                        <?php foreach ($dadosFinalizado as $finalizado) {
-                        ?>
+                        <?php foreach ($dadosFinalizado as $finalizado): ?>
                             <li>
                                 <?= $finalizado->getNome(); ?>
-                                <?php if ($finalizado->getNota() !== null) {
-                                ?>
+                                <?php if ($finalizado->getNota() !== null): ?>
                                     - Nota: <?= $finalizado->getNota(); ?>
-                                <?php 
-                                }
-                                ?>
+                                <?php endif; ?>
                             </li>
-                        <?php
-                        }
-                        ?>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
 
                 <div class="assistindo">
                     <h2>Assistindo</h2>
                     <ul>
-                        <?php foreach ($dadosAssistindo as $assistindo) {
-                        ?>
+                        <?php foreach ($dadosAssistindo as $assistindo): ?>
                             <li>
                                 <?= $assistindo->getNome(); ?>
-                                <?php if ($assistindo->getNota() !== null) {
-                                ?>
+                                <?php if ($assistindo->getNota() !== null): ?>
                                     - Nota: <?= $assistindo->getNota(); ?>
-                                <?php 
-                                }
-                                ?>
+                                <?php endif; ?>
                             </li>                        
-                        <?php
-                        }
-                        ?>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
 
                 <div class="pretende">
                     <h2>Pretende Assistir</h2>
                     <ul>
-                        <?php foreach ($dadosPretendeAssistir as $pretendeAssistir) {
-                        ?>
+                        <?php foreach ($dadosPretendeAssistir as $pretendeAssistir): ?>
                             <li>
                                 <?= $pretendeAssistir->getNome(); ?>
-                                <?php if ($pretendeAssistir->getNota() !== null) {
-                                ?>
+                                <?php if ($pretendeAssistir->getNota() !== null): ?>
                                     - Nota: <?= $pretendeAssistir->getNota(); ?>
-                                <?php 
-                                }
-                                ?>
+                                <?php endif; ?>
                             </li>
-                        <?php
-                        }
-                        ?>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
