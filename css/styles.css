@@ -136,7 +136,7 @@ li {
 }
 
 .animes__conteudo__formulario__botoes button[name="confirmar"]{
-    background-color: green;
+    background-color: #0CC766;
 }
 
 .animes__conteudo__formulario__botoes button[name="excluir"]{

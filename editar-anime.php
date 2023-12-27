@@ -130,6 +130,15 @@ if (isset($_POST["excluir"]) && $animeId) {
                     });
                 }
             });
+
+            excluirButton.addEventListener('click', function (event) {
+                let confirmacao = confirm("Tem certeza que deseja excluir este anime da lista?");
+
+                if (!confirmacao) {
+                    // cancela a operação de exclusao
+                    event.preventDefault();
+                }
+            })
         });
     </script>
 </body>
