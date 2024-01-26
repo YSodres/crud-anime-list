@@ -36,45 +36,55 @@ if (isset($_POST["excluir"]) && $animeId) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Anime</title>
-    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
     <header></header>
-    <main class="animes">
-        <section class="animes__conteudo">
-            <h1 class="animes__conteudo__titulo">Informações do Anime</h1>
+    <main>
+        <section class="container mt-4">
+            <h1 class="text-center mb-4 fw-bold">Informações do Anime</h1>
 
-            <a class="animes__conteudo__adicionar" href="index.php">Página principal</a>
+            <a class="btn btn-primary mb-4" href="index.php">Página principal</a>
 
-            <form class="animes__conteudo__formulario" method="post">
-                <label for="anime_id" class="required">Escolha o Anime</label>
-                <select name="anime_id" id="anime_id" required>
-                    <option value="" selected disabled>-</option>
-                    <?php foreach ($animes as $animeOption): ?>
-                        <option value="<?= $animeOption->getId() ?>" <?= ($animeOption->getId() == $animeId) ? 'selected' : '' ?>>
-                            <?= $animeOption->getNome() ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+            <div class="d-flex .flex-colum">
+                <form method="post">
+                    <div class="mb-2">
+                        <label for="anime_id" class="required form-label">Escolha o Anime:</label>
+                        <select class="form-select" name="anime_id" id="anime_id" required>
+                            <option value="" selected disabled>-</option>
+                            <?php foreach ($animes as $animeOption): ?>
+                                <option value="<?= $animeOption->getId() ?>" <?= ($animeOption->getId() == $animeId) ? 'selected' : '' ?>>
+                                    <?= $animeOption->getNome() ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
 
-                <label for="nome" class="required">Nome do Anime:</label>
-                <input type="text" id="nome" name="nome" value="<?= $anime ? $anime->getNome() : ''; ?>" readonly required>
+                    <div class="mb-2">
+                        <label for="nome" class="required form-label">Nome do Anime:</label>
+                        <input type="text" class="form-control" id="nome" name="nome" value="<?= $anime ? $anime->getNome() : ''; ?>" readonly required>
+                    </div>
 
-                <label for="nota">Nota:</label>
-                <input type="number" id="nota" name="nota" min="0" max="10" step="0.1" value="<?= $anime ? $anime->getNota() : ''; ?>" readonly>
+                    <div class="mb-4">
+                        <label for="nota" class="form-label">Nota:</label>
+                        <input type="number" class="form-control" id="nota" name="nota" min="0" max="10" step="0.1" value="<?= $anime ? $anime->getNota() : ''; ?>" readonly>
+                    </div>
 
-                <label for="status">Status:</label>
-                <select id="status" name="status" disabled>
-                    <option value="Finalizado" <?= ($anime && $anime->getStatus() == 'Finalizado') ? 'selected' : ''; ?>>Finalizado</option>
-                    <option value="Assistindo" <?= ($anime && $anime->getStatus() == 'Assistindo') ? 'selected' : ''; ?>>Assistindo</option>
-                    <option value="Pretende Assistir" <?= ($anime && $anime->getStatus() == 'Pretende Assistir') ? 'selected' : ''; ?>>Pretende Assistir</option>
-                </select>
-                
-                <div class="animes__conteudo__formulario__botoes">
-                    <button type="submit" id="confirmar" name="confirmar" disabled>Confirmar</button>
-                    <button type="submit" id="excluir" name="excluir" disabled>Excluir</button>
-                </div>
-            </form>
+                    <div class="mb-2">
+                        <label for="status" class="form-label">Status:</label>
+                        <select class="form-select" id="status" name="status" disabled>
+                            <option value="Finalizado" <?= ($anime && $anime->getStatus() == 'Finalizado') ? 'selected' : ''; ?>>Finalizado</option>
+                            <option value="Assistindo" <?= ($anime && $anime->getStatus() == 'Assistindo') ? 'selected' : ''; ?>>Assistindo</option>
+                            <option value="Pretende Assistir" <?= ($anime && $anime->getStatus() == 'Pretende Assistir') ? 'selected' : ''; ?>>Pretende Assistir</option>
+                        </select>
+                    </div>
+                    
+                    <div class="d-flex gap-2 mt-3">
+                        <button class="btn btn-success" type="submit" id="confirmar" name="confirmar" disabled>Confirmar</button>
+                        <button class="btn btn-danger" type="submit" id="excluir" name="excluir" disabled>Excluir</button>
+                    </div>
+                </form>
+            </div>
         </section>
     </main>
     <footer></footer>
@@ -134,5 +144,6 @@ if (isset($_POST["excluir"]) && $animeId) {
             })
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
 </html>
