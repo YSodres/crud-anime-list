@@ -65,7 +65,7 @@ if (isset($_POST["excluir"]) && $animeId) {
                         <input type="text" class="form-control" id="nome" name="nome" value="<?= $anime ? $anime->getNome() : ''; ?>" readonly required>
                     </div>
 
-                    <div class="mb-4">
+                    <div class="mb-2">
                         <label for="nota" class="form-label">Nota:</label>
                         <input type="number" class="form-control" id="nota" name="nota" min="0" max="10" step="0.1" value="<?= $anime ? $anime->getNota() : ''; ?>" readonly>
                     </div>
