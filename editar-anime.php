@@ -37,6 +37,12 @@ if (isset($_POST["excluir"]) && $animeId) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Anime</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        .required:after {
+            content:" *"; 
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <header></header>
@@ -49,7 +55,7 @@ if (isset($_POST["excluir"]) && $animeId) {
             <div class="d-flex .flex-colum">
                 <form method="post">
                     <div class="mb-2">
-                        <label for="anime_id" class="required form-label">Escolha o Anime:</label>
+                        <label for="anime_id" class="form-label fw-bold">Escolha o Anime:</label>
                         <select class="form-select" name="anime_id" id="anime_id" required>
                             <option value="" selected disabled>-</option>
                             <?php foreach ($animes as $animeOption): ?>
@@ -61,17 +67,17 @@ if (isset($_POST["excluir"]) && $animeId) {
                     </div>
 
                     <div class="mb-2">
-                        <label for="nome" class="required form-label">Nome do Anime:</label>
+                        <label for="nome" class="required form-label fw-bold">Nome do Anime:</label>
                         <input type="text" class="form-control" id="nome" name="nome" value="<?= $anime ? $anime->getNome() : ''; ?>" readonly required>
                     </div>
 
                     <div class="mb-2">
-                        <label for="nota" class="form-label">Nota:</label>
+                        <label for="nota" class="form-label fw-bold">Nota:</label>
                         <input type="number" class="form-control" id="nota" name="nota" min="0" max="10" step="0.1" value="<?= $anime ? $anime->getNota() : ''; ?>" readonly>
                     </div>
 
                     <div class="mb-2">
-                        <label for="status" class="form-label">Status:</label>
+                        <label for="status" class="form-label fw-bold">Status:</label>
                         <select class="form-select" id="status" name="status" disabled>
                             <option value="Finalizado" <?= ($anime && $anime->getStatus() == 'Finalizado') ? 'selected' : ''; ?>>Finalizado</option>
                             <option value="Assistindo" <?= ($anime && $anime->getStatus() == 'Assistindo') ? 'selected' : ''; ?>>Assistindo</option>
