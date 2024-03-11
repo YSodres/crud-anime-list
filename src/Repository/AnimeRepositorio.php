@@ -1,22 +1,20 @@
 <?php
 
+use Illuminate\Database\Capsule\Manager as DB;
+
 class AnimeRepositorio
 {
-    private PDO $pdo;
+    private $pdo;
 
-    public function __construct(PDO $pdo)
+    public function __construct($pdo)
     {
-        $this->pdo = $pdo;
+        
+        $this->pdo = DB::connection()->getPdo();
     }
 
     private function formarObjeto($dados)
     {
-        return new Anime(
-            $dados["id"],
-            $dados["nome"],
-            $dados["nota"],
-            $dados["status"],
-        );
+        return $dados;
     }
 
     public function listaFinalizado(): array
@@ -28,19 +26,6 @@ class AnimeRepositorio
         $dadosAnimes = array_map(function ($anime) {
             return $this->formarObjeto($anime);
         }, $animesFinalizados);
-
-        return $dadosAnimes;
-    }
-
-    public function listaAssistindo(): array
-    {
-        $sql = "SELECT * FROM animes WHERE status = 'Assistindo' ORDER BY nota DESC";
-        $stmt = $this->pdo->query($sql);
-        $animesAssistindo = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        $dadosAnimes = array_map(function ($anime) {
-            return $this->formarObjeto($anime);
-        }, $animesAssistindo);
 
         return $dadosAnimes;
     }
